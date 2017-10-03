@@ -124,6 +124,7 @@ struct Shape {
   }
   /*! \return number of valid elements */
   MSHADOW_XINLINE size_t Size(void) const {
+    if (kDimension == 0) return 0;
     size_t size = this->shape_[0];
     #pragma unroll
     for (int i = 1; i < kDimension; ++i) {
@@ -137,6 +138,7 @@ struct Shape {
    * \param dimend end dimension
    */
   MSHADOW_XINLINE index_t ProdShape(int dimstart, int dimend) const {
+    if (dimstart == dimend) return 0;
     index_t num = 1;
     #pragma unroll
     for (int i = dimstart; i < dimend; ++i) {
